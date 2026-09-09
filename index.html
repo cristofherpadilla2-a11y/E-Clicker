@@ -122,6 +122,26 @@
       padding-bottom: 5px;
     }
 
+    .admin-btn {
+      background: #145A32;
+      border: 2px solid #00FF66;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      align-self: flex-start;
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+      transition: background 0.2s;
+    }
+
+    .admin-btn:hover {
+      background: #00FF66;
+      color: #000000;
+    }
+
     .upgrade-btn {
       width: 100%;
       background: #141E17;
@@ -185,11 +205,78 @@
       border-color: #555555;
       cursor: not-allowed;
     }
+
+    /* Admin Modal Dashboard Styles */
+    #adminModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .admin-dashboard-box {
+      background: linear-gradient(135deg, #051923, #003554);
+      border: 3px solid #00FF66;
+      border-radius: 16px;
+      padding: 30px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 255, 102, 0.5);
+    }
+
+    .admin-dashboard-title {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #00FF66;
+      letter-spacing: 1px;
+    }
+
+    .dashboard-btn {
+      width: 100%;
+      background: rgba(20, 30, 23, 0.9);
+      border: 2px solid #00FF66;
+      color: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+    }
+
+    .dashboard-btn:hover {
+      background: #00FF66;
+      color: #000000;
+      transform: scale(1.02);
+      box-shadow: 0 0 15px #00FF66;
+    }
+
+    .close-modal-btn {
+      background: #ff4d4d;
+      border: 2px solid #ff1a1a;
+      color: white;
+      margin-top: 10px;
+    }
+
+    .close-modal-btn:hover {
+      background: #ff1a1a;
+      color: white;
+    }
   </style>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, setDoc, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, collection, query, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCIwhMDn05S_eKskKkjdSJzuDZhlFCdQeE",
@@ -241,35 +328,39 @@
       }
     }
 
-    async function fetchLeaderboard() {
-      try {
-        const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
-        const querySnapshot = await getDocs(q);
-        const listEl = document.getElementById('leaderboardList');
-        listEl.innerHTML = '';
+    const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
+    onSnapshot(q, (querySnapshot) => {
+      const listEl = document.getElementById('leaderboardList');
+      listEl.innerHTML = '';
 
-        let rank = 1;
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          const li = document.createElement('li');
-          li.className = 'leaderboard-item';
-          li.innerHTML = `<span>#${rank} ${data.username}</span> <strong>${data.score} E</strong>`;
-          listEl.appendChild(li);
-          rank++;
-        });
-      } catch (e) {
-        console.error("Error fetching leaderboard: ", e);
-      }
-    }
+      let rank = 1;
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const li = document.createElement('li');
+        li.className = 'leaderboard-item';
+        li.innerHTML = `<span>#${rank} ${data.username}</span> <strong>${data.score} E</strong>`;
+        listEl.appendChild(li);
+        rank++;
+      });
+    });
 
     setInterval(saveScoreToCloud, 5000);
-    setInterval(fetchLeaderboard, 5000);
-    fetchLeaderboard();
   </script>
 </head>
 <body>
 
   <h1>E CLICKER</h1>
+
+  <!-- ADMIN PANEL DASHBOARD MODAL -->
+  <div id="adminModal">
+    <div class="admin-dashboard-box">
+      <div class="admin-dashboard-title">ADMIN PANEL:</div>
+      <button class="dashboard-btn" id="infPointsBtn">Inf Points 🤑</button>
+      <button class="dashboard-btn" id="givePointsBtn">Give Points to user 💸</button>
+      <button class="dashboard-btn" id="setPointsBtn">Set Points 💰</button>
+      <button class="dashboard-btn close-modal-btn" id="closeAdminModal">Close Panel</button>
+    </div>
+  </div>
 
   <div class="main-layout">
     <div class="game-section">
@@ -286,6 +377,8 @@
           id="catBtn"
         >
       </div>
+
+      <button class="admin-btn" id="adminBtn">ADMIN</button>
 
       <div class="panel">
         <div class="panel-title">Upgrades</div>
@@ -317,7 +410,7 @@
 
     <div class="leaderboard-section">
       <div class="panel">
-        <div class="panel-title">Live Leaderboard (Auto 5s)</div>
+        <div class="panel-title">Live Leaderboard</div>
         <input type="text" id="usernameInput" class="username-input" placeholder="Type your Discord name" maxlength="15">
         <ol class="leaderboard-list" id="leaderboardList">
           <li class="leaderboard-item"><span>Loading...</span></li>
@@ -343,6 +436,63 @@
     const buyClickerBtn = document.getElementById('buyClicker');
     const buyPowerBtn = document.getElementById('buyPower');
     const buyFactoryBtn = document.getElementById('buyFactory');
+    
+    const adminBtn = document.getElementById('adminBtn');
+    const adminModal = document.getElementById('adminModal');
+    const closeAdminModal = document.getElementById('closeAdminModal');
+    const infPointsBtn = document.getElementById('infPointsBtn');
+    const givePointsBtn = document.getElementById('givePointsBtn');
+    const setPointsBtn = document.getElementById('setPointsBtn');
+
+    // Password prompt on ADMIN button click
+    adminBtn.addEventListener('click', () => {
+      const password = prompt("Enter ADMIN PASSWORD:");
+      if (password === "Cristo90") { // You can change "Cristo90" to whatever password you want!
+        adminModal.style.display = "flex";
+      } else if (password !== null) {
+        alert("Incorrect password!");
+      }
+    });
+
+    closeAdminModal.addEventListener('click', () => {
+      adminModal.style.display = "none";
+    });
+
+    // 1. Inf Points Feature
+    infPointsBtn.addEventListener('click', () => {
+      window.gameScore += 999999999;
+      updateDisplay();
+      saveProgressLocally();
+      alert("Infinite Points Activated! 🤑");
+    });
+
+    // 2. Give Points to user Feature
+    givePointsBtn.addEventListener('click', () => {
+      const amount = prompt("How many points do you want to add?");
+      const num = parseFloat(amount);
+      if (!isNaN(num)) {
+        window.gameScore += num;
+        updateDisplay();
+        saveProgressLocally();
+        alert(`Successfully added ${num} points! 💸`);
+      } else if (amount !== null) {
+        alert("Please enter a valid number.");
+      }
+    });
+
+    // 3. Set Points Feature
+    setPointsBtn.addEventListener('click', () => {
+      const amount = prompt("Set total score to what number?");
+      const num = parseFloat(amount);
+      if (!isNaN(num)) {
+        window.gameScore = num;
+        updateDisplay();
+        saveProgressLocally();
+        alert(`Score set to ${num}! 💰`);
+      } else if (amount !== null) {
+        alert("Please enter a valid number.");
+      }
+    });
 
     function saveProgressLocally() {
       localStorage.setItem('e_clicker_score', window.gameScore);
