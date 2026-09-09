@@ -191,14 +191,13 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, doc, setDoc, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // PASTE YOUR FIREBASE KEYS HERE
     const firebaseConfig = {
-      apiKey: "AIzaSyBgGd4dstPXvjLfkjzvit8e11bvcqk0yKM",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "1:668379465130:web:a4fe4b2d1ab4258fbb97d3"
+      apiKey: "AIzaSyCIwhMDn05S_eKskKkjdSJzuDZhlFCdQeE",
+      authDomain: "e-clicker-f55e6.firebaseapp.com",
+      projectId: "e-clicker-f55e6",
+      storageBucket: "e-clicker-f55e6.appspot.com",
+      messagingSenderId: "208775071978",
+      appId: "1:208775071978:web:c00fd6fff6b2b16b532f93"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -263,7 +262,6 @@
       }
     }
 
-    // Set intervals to 5 seconds (5000ms)
     setInterval(saveScoreToCloud, 5000);
     setInterval(fetchLeaderboard, 5000);
     fetchLeaderboard();
