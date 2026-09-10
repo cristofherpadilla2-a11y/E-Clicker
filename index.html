@@ -12,9 +12,8 @@
 
     body {
       margin: 0;
-      padding: 20px;
+      padding: 20px 10px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      /* Cosmic galaxy background using your blue tokens image */
       background: url('https://instasize.com/api/image/d552497648af7f20626f807e64481fd0c417fa28d6916753eab603d2c64328fc.jpeg') no-repeat center center fixed;
       background-size: cover;
       color: #00FF66;
@@ -22,6 +21,7 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      width: 100vw;
       overflow-x: hidden;
       position: relative;
     }
@@ -69,19 +69,21 @@
     }
 
     h1 {
-      font-size: 3rem;
-      margin: 10px 0;
+      font-size: 2.8rem;
+      margin: 5px 0 15px 0;
       text-shadow: 0 0 10px #00FF66;
       letter-spacing: 2px;
       z-index: 10;
+      text-align: center;
     }
 
     .main-layout {
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-width: 450px;
       width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
       z-index: 10;
     }
 
@@ -98,16 +100,16 @@
     }
 
     .score-display {
-      font-size: 2.5rem;
+      font-size: 2.3rem;
       font-weight: bold;
       color: #ffffff;
       text-shadow: 0 0 8px #00FF66;
     }
 
     .cps-display {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: #A0FFA0;
-      margin-top: 5px;
+      margin-top: 3px;
     }
 
     .clicker-container {
@@ -116,8 +118,8 @@
     }
 
     .click-target {
-      width: 200px;
-      height: 200px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       border: 4px solid #00FF66;
       box-shadow: 0 0 25px rgba(0, 255, 102, 0.5);
@@ -184,7 +186,7 @@
 
     .panel {
       width: 100%;
-      background: rgba(11, 15, 12, 0.85);
+      background: rgba(11, 15, 12, 0.88);
       border: 1px solid rgba(0, 255, 102, 0.3);
       border-radius: 12px;
       padding: 15px;
@@ -201,7 +203,7 @@
 
     .leaderboard-title {
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin-bottom: 15px;
       border-bottom: 1px solid rgba(0, 255, 102, 0.3);
       padding-bottom: 5px;
@@ -245,6 +247,7 @@
     .leaderboard-container {
       width: 100%;
       margin-top: 20px;
+      margin-bottom: 30px;
     }
 
     .username-input {
@@ -277,6 +280,7 @@
       margin-bottom: 6px;
       border-radius: 6px;
       border-left: 3px solid #00FF66;
+      font-size: 0.95rem;
     }
 
     .modal-overlay {
@@ -296,17 +300,17 @@
       background: linear-gradient(135deg, #051923, #003554);
       border: 3px solid #00FF66;
       border-radius: 16px;
-      padding: 30px;
+      padding: 25px;
       width: 90%;
-      max-width: 450px;
+      max-width: 400px;
       text-align: center;
       box-shadow: 0 0 30px rgba(0, 255, 102, 0.5);
     }
 
     .admin-dashboard-title {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: #ffffff;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       text-shadow: 0 0 10px #00FF66;
     }
 
@@ -315,11 +319,11 @@
       background: rgba(20, 30, 23, 0.9);
       border: 2px solid #00FF66;
       color: #ffffff;
-      padding: 15px;
-      margin-bottom: 15px;
+      padding: 12px;
+      margin-bottom: 12px;
       border-radius: 10px;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: bold;
       transition: all 0.2s ease;
     }
@@ -333,7 +337,7 @@
       background: #ff4d4d;
       border: 2px solid #ff1a1a;
       color: white;
-      margin-top: 10px;
+      margin-top: 5px;
     }
 
     .close-modal-btn:hover {
@@ -345,8 +349,8 @@
       border: 3px solid #00FF66;
       border-radius: 16px;
       width: 90%;
-      max-width: 400px;
-      height: 450px;
+      max-width: 380px;
+      height: 420px;
       display: flex;
       flex-direction: column;
       padding: 15px;
@@ -370,7 +374,7 @@
       background: rgba(0, 255, 102, 0.1);
       padding: 6px 10px;
       border-radius: 6px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       word-break: break-word;
     }
 
@@ -451,7 +455,7 @@
       onSnapshot(banRef, (docSnap) => {
         if (docSnap.exists()) {
           document.body.innerHTML = `
-            <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:#0B0F0C; color:#ff4d4d; text-align:center;">
+            <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:#0B0F0C; color:#ff4d4d; text-align:center; padding: 20px;">
               <h1 style="font-size:3rem; text-shadow:0 0 10px #ff4d4d;">YOU ARE BANNED</h1>
               <p style="font-size:1.2rem; color:#fff;">An administrator has banned the username "${username}" from this game.</p>
             </div>
@@ -604,14 +608,14 @@
     const tokenImageUrl = "https://instasize.com/api/image/d552497648af7f20626f807e64481fd0c417fa28d6916753eab603d2c64328fc.jpeg";
 
     const imagesToFloat = [catImageUrl, tokenImageUrl];
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 15; i++) {
       const bgItem = document.createElement('img');
       bgItem.src = imagesToFloat[i % imagesToFloat.length];
       bgItem.className = 'bg-floating-item';
       bgItem.style.left = `${Math.random() * 100}vw`;
       bgItem.style.animationDuration = `${Math.random() * 8 + 6}s`;
       bgItem.style.animationDelay = `${Math.random() * 5}s`;
-      const size = Math.random() * 45 + 35;
+      const size = Math.random() * 40 + 30;
       bgItem.style.width = `${size}px`;
       bgItem.style.height = `${size}px`;
       document.body.appendChild(bgItem);
@@ -726,7 +730,7 @@
             <div><span id="costGodModeClick">25000</span> E</div>
           </button>
 
-          <!-- 10 New Powerful Upgrades -->
+          <!-- 10 Powerful Upgrades from before -->
           <button class="upgrade-btn" id="buyEMiningRig" disabled>
             <div>
               <div>Hyper E-Mining Rig</div>
@@ -802,9 +806,170 @@
           <button class="upgrade-btn" id="buyOmniSingularity" disabled>
             <div>
               <div>Omni-E Singularity</div>
-              <small style="color:#aaa">+20,000,000 E/s & +50k/click</small>
+              <small style="color:#aaa">+20M E/s & +50k/click</small>
             </div>
             <div><span id="costOmniSingularity">15000000000</span> E</div>
+          </button>
+
+          <!-- 20 Brand New Upgrades Added Here! -->
+          <button class="upgrade-btn" id="buyNeonSpark" disabled>
+            <div>
+              <div>Neon Spark Battery</div>
+              <small style="color:#aaa">+50,000,000 E/s</small>
+            </div>
+            <div><span id="costNeonSpark">50000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyPlasmaTap" disabled>
+            <div>
+              <div>Plasma Tap Glove</div>
+              <small style="color:#aaa">+250,000 per click</small>
+            </div>
+            <div><span id="costPlasmaTap">120000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyVoidHarvester" disabled>
+            <div>
+              <div>Void Harvester</div>
+              <small style="color:#aaa">+250,000,000 E/s</small>
+            </div>
+            <div><span id="costVoidHarvester">300000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyNexusCore" disabled>
+            <div>
+              <div>E-Nexus Core</div>
+              <small style="color:#aaa">+1,200,000,000 E/s</small>
+            </div>
+            <div><span id="costNexusCore">800000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buySolarFlare" disabled>
+            <div>
+              <div>Solar Flare Clicker</div>
+              <small style="color:#aaa">+1,500,000 per click</small>
+            </div>
+            <div><span id="costSolarFlare">2000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyNebulaWeaver" disabled>
+            <div>
+              <div>Nebula Weaver</div>
+              <small style="color:#aaa">+6,000,000,000 E/s</small>
+            </div>
+            <div><span id="costNebulaWeaver">5000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyMatrixNode" disabled>
+            <div>
+              <div>Matrix E-Node</div>
+              <small style="color:#aaa">+25,000,000,000 E/s</small>
+            </div>
+            <div><span id="costMatrixNode">12000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyQuantumTap" disabled>
+            <div>
+              <div>Quantum Tap Striker</div>
+              <small style="color:#aaa">+10,000,000 per click</small>
+            </div>
+            <div><span id="costQuantumTap">30000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyTitanEngine" disabled>
+            <div>
+              <div>Titan E-Engine</div>
+              <small style="color:#aaa">+100,000,000,000 E/s</small>
+            </div>
+            <div><span id="costTitanEngine">75000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyHyperdrive" disabled>
+            <div>
+              <div>Hyperdrive Core</div>
+              <small style="color:#aaa">+400,000,000,000 E/s</small>
+            </div>
+            <div><span id="costHyperdrive">180000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyGammaStrike" disabled>
+            <div>
+              <div>Gamma Ray Striker</div>
+              <small style="color:#aaa">+75,000,000 per click</small>
+            </div>
+            <div><span id="costGammaStrike">400000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyDarkMatterSilo" disabled>
+            <div>
+              <div>Dark Matter Silo</div>
+              <small style="color:#aaa">+1,800,000,000,000 E/s</small>
+            </div>
+            <div><span id="costDarkMatterSilo">900000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyInfinityBeacon" disabled>
+            <div>
+              <div>Infinity Beacon</div>
+              <small style="color:#aaa">+8,000,000,000,000 E/s</small>
+            </div>
+            <div><span id="costInfinityBeacon">2000000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyCosmicScepter" disabled>
+            <div>
+              <div>Cosmic Scepter</div>
+              <small style="color:#aaa">+500,000,000 per click</small>
+            </div>
+            <div><span id="costCosmicScepter">4500000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyAetherForge" disabled>
+            <div>
+              <div>Aether E-Forge</div>
+              <small style="color:#aaa">+35,000,000,000,000 E/s</small>
+            </div>
+            <div><span id="costAetherForge">10000000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyStarlightAnvil" disabled>
+            <div>
+              <div>Starlight Anvil</div>
+              <small style="color:#aaa">+3,000,000,000 per click</small>
+            </div>
+            <div><span id="costStarlightAnvil">22000000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyRealityWeaver" disabled>
+            <div>
+              <div>Reality Weaver</div>
+              <small style="color:#aaa">+150,000,000,000,000 E/s</small>
+            </div>
+            <div><span id="costRealityWeaver">50000000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buySupermembrane" disabled>
+            <div>
+              <div>Supermembrane Grid</div>
+              <small style="color:#aaa">+700,000,000,000,000 E/s</small>
+            </div>
+            <div><span id="costSupermembrane">120000000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyOmegaGauntlet" disabled>
+            <div>
+              <div>Omega Gauntlet</div>
+              <small style="color:#aaa">+25,000,000,000 per click</small>
+            </div>
+            <div><span id="costOmegaGauntlet">300000000000000000</span> E</div>
+          </button>
+
+          <button class="upgrade-btn" id="buyMultiversalCore" disabled>
+            <div>
+              <div>Multiversal E-Core</div>
+              <small style="color:#aaa">+5,000,000,000,000,000 E/s</small>
+            </div>
+            <div><span id="costMultiversalCore">1000000000000000000</span> E</div>
           </button>
         </div>
       </div>
@@ -836,7 +1001,6 @@
     let costQuantumReactor = parseInt(localStorage.getItem('e_clicker_costQuantumReactor')) || 15000;
     let costGodModeClick = parseInt(localStorage.getItem('e_clicker_costGodModeClick')) || 25000;
 
-    // New Upgrades Costs Loading
     let costEMiningRig = parseInt(localStorage.getItem('e_clicker_costEMiningRig')) || 100000;
     let costCosmicLaser = parseInt(localStorage.getItem('e_clicker_costCosmicLaser')) || 250000;
     let costAIEmperor = parseInt(localStorage.getItem('e_clicker_costAIEmperor')) || 750000;
@@ -847,6 +1011,28 @@
     let costGodlyStrike = parseInt(localStorage.getItem('e_clicker_costGodlyStrike')) || 800000000;
     let costTimeWarpEngine = parseInt(localStorage.getItem('e_clicker_costTimeWarpEngine')) || 3500000000;
     let costOmniSingularity = parseInt(localStorage.getItem('e_clicker_costOmniSingularity')) || 15000000000;
+
+    // Costs for the 20 new upgrades
+    let costNeonSpark = parseInt(localStorage.getItem('e_clicker_costNeonSpark')) || 50000000000;
+    let costPlasmaTap = parseInt(localStorage.getItem('e_clicker_costPlasmaTap')) || 120000000000;
+    let costVoidHarvester = parseInt(localStorage.getItem('e_clicker_costVoidHarvester')) || 300000000000;
+    let costNexusCore = parseInt(localStorage.getItem('e_clicker_costNexusCore')) || 800000000000;
+    let costSolarFlare = parseInt(localStorage.getItem('e_clicker_costSolarFlare')) || 2000000000000;
+    let costNebulaWeaver = parseInt(localStorage.getItem('e_clicker_costNebulaWeaver')) || 5000000000000;
+    let costMatrixNode = parseInt(localStorage.getItem('e_clicker_costMatrixNode')) || 12000000000000;
+    let costQuantumTap = parseInt(localStorage.getItem('e_clicker_costQuantumTap')) || 30000000000000;
+    let costTitanEngine = parseInt(localStorage.getItem('e_clicker_costTitanEngine')) || 75000000000000;
+    let costHyperdrive = parseInt(localStorage.getItem('e_clicker_costHyperdrive')) || 180000000000000;
+    let costGammaStrike = parseInt(localStorage.getItem('e_clicker_costGammaStrike')) || 400000000000000;
+    let costDarkMatterSilo = parseInt(localStorage.getItem('e_clicker_costDarkMatterSilo')) || 900000000000000;
+    let costInfinityBeacon = parseInt(localStorage.getItem('e_clicker_costInfinityBeacon')) || 2000000000000000;
+    let costCosmicScepter = parseInt(localStorage.getItem('e_clicker_costCosmicScepter')) || 4500000000000000;
+    let costAetherForge = parseInt(localStorage.getItem('e_clicker_costAetherForge')) || 10000000000000000;
+    let costStarlightAnvil = parseInt(localStorage.getItem('e_clicker_costStarlightAnvil')) || 22000000000000000;
+    let costRealityWeaver = parseInt(localStorage.getItem('e_clicker_costRealityWeaver')) || 50000000000000000;
+    let costSupermembrane = parseInt(localStorage.getItem('e_clicker_costSupermembrane')) || 120000000000000000;
+    let costOmegaGauntlet = parseInt(localStorage.getItem('e_clicker_costOmegaGauntlet')) || 300000000000000000;
+    let costMultiversalCore = parseInt(localStorage.getItem('e_clicker_costMultiversalCore')) || 1000000000000000000;
 
     const scoreEl = document.getElementById('score');
     const cpsEl = document.getElementById('cps');
@@ -861,7 +1047,6 @@
     const buyQuantumReactorBtn = document.getElementById('buyQuantumReactor');
     const buyGodModeClickBtn = document.getElementById('buyGodModeClick');
 
-    // New Upgrades Elements Mapping
     const buyEMiningRigBtn = document.getElementById('buyEMiningRig');
     const buyCosmicLaserBtn = document.getElementById('buyCosmicLaser');
     const buyAIEmperorBtn = document.getElementById('buyAIEmperor');
@@ -872,6 +1057,28 @@
     const buyGodlyStrikeBtn = document.getElementById('buyGodlyStrike');
     const buyTimeWarpEngineBtn = document.getElementById('buyTimeWarpEngine');
     const buyOmniSingularityBtn = document.getElementById('buyOmniSingularity');
+
+    // Buttons for the 20 new upgrades
+    const buyNeonSparkBtn = document.getElementById('buyNeonSpark');
+    const buyPlasmaTapBtn = document.getElementById('buyPlasmaTap');
+    const buyVoidHarvesterBtn = document.getElementById('buyVoidHarvester');
+    const buyNexusCoreBtn = document.getElementById('buyNexusCore');
+    const buySolarFlareBtn = document.getElementById('buySolarFlare');
+    const buyNebulaWeaverBtn = document.getElementById('buyNebulaWeaver');
+    const buyMatrixNodeBtn = document.getElementById('buyMatrixNode');
+    const buyQuantumTapBtn = document.getElementById('buyQuantumTap');
+    const buyTitanEngineBtn = document.getElementById('buyTitanEngine');
+    const buyHyperdriveBtn = document.getElementById('buyHyperdrive');
+    const buyGammaStrikeBtn = document.getElementById('buyGammaStrike');
+    const buyDarkMatterSiloBtn = document.getElementById('buyDarkMatterSilo');
+    const buyInfinityBeaconBtn = document.getElementById('buyInfinityBeacon');
+    const buyCosmicScepterBtn = document.getElementById('buyCosmicScepter');
+    const buyAetherForgeBtn = document.getElementById('buyAetherForge');
+    const buyStarlightAnvilBtn = document.getElementById('buyStarlightAnvil');
+    const buyRealityWeaverBtn = document.getElementById('buyRealityWeaver');
+    const buySupermembraneBtn = document.getElementById('buySupermembrane');
+    const buyOmegaGauntletBtn = document.getElementById('buyOmegaGauntlet');
+    const buyMultiversalCoreBtn = document.getElementById('buyMultiversalCore');
     
     const adminBtn = document.getElementById('adminBtn');
     const adminModal = document.getElementById('adminModal');
@@ -943,54 +1150,80 @@
       }
     });
 
+    // Password Protected Admin Actions (crislegoat90)
     infPointsBtn.addEventListener('click', () => {
-      const code = prompt("Enter access code to enable Inf Points:");
-      if (code === "cristo90$$") {
+      const code = prompt("Enter admin password for Inf Points:");
+      if (code === "crislegoat90") {
         window.gameScore = Infinity;
         updateDisplay();
         saveProgressLocally();
         if(window.saveScoreToCloud) window.saveScoreToCloud();
         alert("Infinite Points Activated! ♾️");
       } else if (code !== null) {
-        alert("Incorrect code! Access denied.");
+        alert("Incorrect password! Access denied.");
       }
     });
 
     disableInfBtn.addEventListener('click', () => {
-      window.gameScore = 0;
-      updateDisplay();
-      saveProgressLocally();
-      if(window.saveScoreToCloud) window.saveScoreToCloud();
-      alert("Infinite points disabled! Score reset to 0. 📉");
-    });
-
-    givePointsBtn.addEventListener('click', () => {
-      window.givePointsToUserByName();
-    });
-
-    setPointsBtn.addEventListener('click', () => {
-      const amount = prompt("Set total score to what number?");
-      const num = parseFloat(amount);
-      if (!isNaN(num)) {
-        window.gameScore = num;
+      const code = prompt("Enter admin password to disable Inf points:");
+      if (code === "crislegoat90") {
+        window.gameScore = 0;
         updateDisplay();
         saveProgressLocally();
         if(window.saveScoreToCloud) window.saveScoreToCloud();
-        alert(`Score set to ${num}! 💰`);
-      } else if (amount !== null) {
-        alert("Please enter a valid number.");
+        alert("Infinite points disabled! Score reset to 0. 📉");
+      } else if (code !== null) {
+        alert("Incorrect password!");
+      }
+    });
+
+    givePointsBtn.addEventListener('click', () => {
+      const code = prompt("Enter admin password:");
+      if (code === "crislegoat90") {
+        window.givePointsToUserByName();
+      } else if (code !== null) {
+        alert("Incorrect password!");
+      }
+    });
+
+    setPointsBtn.addEventListener('click', () => {
+      const code = prompt("Enter admin password:");
+      if (code === "crislegoat90") {
+        const amount = prompt("Set total score to what number?");
+        const num = parseFloat(amount);
+        if (!isNaN(num)) {
+          window.gameScore = num;
+          updateDisplay();
+          saveProgressLocally();
+          if(window.saveScoreToCloud) window.saveScoreToCloud();
+          alert(`Score set to ${num}! 💰`);
+        } else if (amount !== null) {
+          alert("Please enter a valid number.");
+        }
+      } else if (code !== null) {
+        alert("Incorrect password!");
       }
     });
 
     banUserBtn.addEventListener('click', () => {
-      const usernameToBan = prompt("Enter the exact username of the person you want to ban:");
-      if (usernameToBan && usernameToBan.trim() !== "") {
-        window.banUserInCloud(usernameToBan.trim());
+      const code = prompt("Enter admin password to ban a user:");
+      if (code === "crislegoat90") {
+        const usernameToBan = prompt("Enter the exact username of the person you want to ban:");
+        if (usernameToBan && usernameToBan.trim() !== "") {
+          window.banUserInCloud(usernameToBan.trim());
+        }
+      } else if (code !== null) {
+        alert("Incorrect password!");
       }
     });
 
     resetPointsBtn.addEventListener('click', () => {
-      window.resetAllScoresInCloud();
+      const code = prompt("Enter admin password to reset everyone's points:");
+      if (code === "crislegoat90") {
+        window.resetAllScoresInCloud();
+      } else if (code !== null) {
+        alert("Incorrect password!");
+      }
     });
 
     function saveProgressLocally() {
@@ -1005,7 +1238,6 @@
       localStorage.setItem('e_clicker_costQuantumReactor', costQuantumReactor);
       localStorage.setItem('e_clicker_costGodModeClick', costGodModeClick);
 
-      // Save New Upgrades Costs
       localStorage.setItem('e_clicker_costEMiningRig', costEMiningRig);
       localStorage.setItem('e_clicker_costCosmicLaser', costCosmicLaser);
       localStorage.setItem('e_clicker_costAIEmperor', costAIEmperor);
@@ -1016,6 +1248,27 @@
       localStorage.setItem('e_clicker_costGodlyStrike', costGodlyStrike);
       localStorage.setItem('e_clicker_costTimeWarpEngine', costTimeWarpEngine);
       localStorage.setItem('e_clicker_costOmniSingularity', costOmniSingularity);
+
+      localStorage.setItem('e_clicker_costNeonSpark', costNeonSpark);
+      localStorage.setItem('e_clicker_costPlasmaTap', costPlasmaTap);
+      localStorage.setItem('e_clicker_costVoidHarvester', costVoidHarvester);
+      localStorage.setItem('e_clicker_costNexusCore', costNexusCore);
+      localStorage.setItem('e_clicker_costSolarFlare', costSolarFlare);
+      localStorage.setItem('e_clicker_costNebulaWeaver', costNebulaWeaver);
+      localStorage.setItem('e_clicker_costMatrixNode', costMatrixNode);
+      localStorage.setItem('e_clicker_costQuantumTap', costQuantumTap);
+      localStorage.setItem('e_clicker_costTitanEngine', costTitanEngine);
+      localStorage.setItem('e_clicker_costHyperdrive', costHyperdrive);
+      localStorage.setItem('e_clicker_costGammaStrike', costGammaStrike);
+      localStorage.setItem('e_clicker_costDarkMatterSilo', costDarkMatterSilo);
+      localStorage.setItem('e_clicker_costInfinityBeacon', costInfinityBeacon);
+      localStorage.setItem('e_clicker_costCosmicScepter', costCosmicScepter);
+      localStorage.setItem('e_clicker_costAetherForge', costAetherForge);
+      localStorage.setItem('e_clicker_costStarlightAnvil', costStarlightAnvil);
+      localStorage.setItem('e_clicker_costRealityWeaver', costRealityWeaver);
+      localStorage.setItem('e_clicker_costSupermembrane', costSupermembrane);
+      localStorage.setItem('e_clicker_costOmegaGauntlet', costOmegaGauntlet);
+      localStorage.setItem('e_clicker_costMultiversalCore', costMultiversalCore);
     }
 
     catBtn.addEventListener('click', (e) => {
@@ -1108,7 +1361,6 @@
       }
     });
 
-    // New Upgrades Logic Handlers
     buyEMiningRigBtn.addEventListener('click', () => {
       if (window.gameScore >= costEMiningRig) {
         if (window.gameScore !== Infinity) window.gameScore -= costEMiningRig;
@@ -1210,6 +1462,187 @@
       }
     });
 
+    // Handlers for the 20 new upgrades
+    buyNeonSparkBtn.addEventListener('click', () => {
+      if (window.gameScore >= costNeonSpark) {
+        if (window.gameScore !== Infinity) window.gameScore -= costNeonSpark;
+        autoCps += 50000000;
+        costNeonSpark = Math.floor(costNeonSpark * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyPlasmaTapBtn.addEventListener('click', () => {
+      if (window.gameScore >= costPlasmaTap) {
+        if (window.gameScore !== Infinity) window.gameScore -= costPlasmaTap;
+        clickValue += 250000;
+        costPlasmaTap = Math.floor(costPlasmaTap * 1.3);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyVoidHarvesterBtn.addEventListener('click', () => {
+      if (window.gameScore >= costVoidHarvester) {
+        if (window.gameScore !== Infinity) window.gameScore -= costVoidHarvester;
+        autoCps += 250000000;
+        costVoidHarvester = Math.floor(costVoidHarvester * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyNexusCoreBtn.addEventListener('click', () => {
+      if (window.gameScore >= costNexusCore) {
+        if (window.gameScore !== Infinity) window.gameScore -= costNexusCore;
+        autoCps += 1200000000;
+        costNexusCore = Math.floor(costNexusCore * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buySolarFlareBtn.addEventListener('click', () => {
+      if (window.gameScore >= costSolarFlare) {
+        if (window.gameScore !== Infinity) window.gameScore -= costSolarFlare;
+        clickValue += 1500000;
+        costSolarFlare = Math.floor(costSolarFlare * 1.32);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyNebulaWeaverBtn.addEventListener('click', () => {
+      if (window.gameScore >= costNebulaWeaver) {
+        if (window.gameScore !== Infinity) window.gameScore -= costNebulaWeaver;
+        autoCps += 6000000000;
+        costNebulaWeaver = Math.floor(costNebulaWeaver * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyMatrixNodeBtn.addEventListener('click', () => {
+      if (window.gameScore >= costMatrixNode) {
+        if (window.gameScore !== Infinity) window.gameScore -= costMatrixNode;
+        autoCps += 25000000000;
+        costMatrixNode = Math.floor(costMatrixNode * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyQuantumTapBtn.addEventListener('click', () => {
+      if (window.gameScore >= costQuantumTap) {
+        if (window.gameScore !== Infinity) window.gameScore -= costQuantumTap;
+        clickValue += 10000000;
+        costQuantumTap = Math.floor(costQuantumTap * 1.35);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyTitanEngineBtn.addEventListener('click', () => {
+      if (window.gameScore >= costTitanEngine) {
+        if (window.gameScore !== Infinity) window.gameScore -= costTitanEngine;
+        autoCps += 100000000000;
+        costTitanEngine = Math.floor(costTitanEngine * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyHyperdriveBtn.addEventListener('click', () => {
+      if (window.gameScore >= costHyperdrive) {
+        if (window.gameScore !== Infinity) window.gameScore -= costHyperdrive;
+        autoCps += 400000000000;
+        costHyperdrive = Math.floor(costHyperdrive * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyGammaStrikeBtn.addEventListener('click', () => {
+      if (window.gameScore >= costGammaStrike) {
+        if (window.gameScore !== Infinity) window.gameScore -= costGammaStrike;
+        clickValue += 75000000;
+        costGammaStrike = Math.floor(costGammaStrike * 1.35);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyDarkMatterSiloBtn.addEventListener('click', () => {
+      if (window.gameScore >= costDarkMatterSilo) {
+        if (window.gameScore !== Infinity) window.gameScore -= costDarkMatterSilo;
+        autoCps += 1800000000000;
+        costDarkMatterSilo = Math.floor(costDarkMatterSilo * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyInfinityBeaconBtn.addEventListener('click', () => {
+      if (window.gameScore >= costInfinityBeacon) {
+        if (window.gameScore !== Infinity) window.gameScore -= costInfinityBeacon;
+        autoCps += 8000000000000;
+        costInfinityBeacon = Math.floor(costInfinityBeacon * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyCosmicScepterBtn.addEventListener('click', () => {
+      if (window.gameScore >= costCosmicScepter) {
+        if (window.gameScore !== Infinity) window.gameScore -= costCosmicScepter;
+        clickValue += 500000000;
+        costCosmicScepter = Math.floor(costCosmicScepter * 1.35);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyAetherForgeBtn.addEventListener('click', () => {
+      if (window.gameScore >= costAetherForge) {
+        if (window.gameScore !== Infinity) window.gameScore -= costAetherForge;
+        autoCps += 35000000000000;
+        costAetherForge = Math.floor(costAetherForge * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyStarlightAnvilBtn.addEventListener('click', () => {
+      if (window.gameScore >= costStarlightAnvil) {
+        if (window.gameScore !== Infinity) window.gameScore -= costStarlightAnvil;
+        clickValue += 3000000000;
+        costStarlightAnvil = Math.floor(costStarlightAnvil * 1.35);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyRealityWeaverBtn.addEventListener('click', () => {
+      if (window.gameScore >= costRealityWeaver) {
+        if (window.gameScore !== Infinity) window.gameScore -= costRealityWeaver;
+        autoCps += 150000000000000;
+        costRealityWeaver = Math.floor(costRealityWeaver * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buySupermembraneBtn.addEventListener('click', () => {
+      if (window.gameScore >= costSupermembrane) {
+        if (window.gameScore !== Infinity) window.gameScore -= costSupermembrane;
+        autoCps += 700000000000000;
+        costSupermembrane = Math.floor(costSupermembrane * 1.25);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyOmegaGauntletBtn.addEventListener('click', () => {
+      if (window.gameScore >= costOmegaGauntlet) {
+        if (window.gameScore !== Infinity) window.gameScore -= costOmegaGauntlet;
+        clickValue += 25000000000;
+        costOmegaGauntlet = Math.floor(costOmegaGauntlet * 1.4);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
+    buyMultiversalCoreBtn.addEventListener('click', () => {
+      if (window.gameScore >= costMultiversalCore) {
+        if (window.gameScore !== Infinity) window.gameScore -= costMultiversalCore;
+        autoCps += 5000000000000000;
+        costMultiversalCore = Math.floor(costMultiversalCore * 1.3);
+        updateDisplay(); saveProgressLocally();
+      }
+    });
+
     setInterval(() => {
       if (window.gameScore !== Infinity) {
         window.gameScore += autoCps;
@@ -1221,6 +1654,7 @@
     function updateDisplay() {
       scoreEl.innerText = window.gameScore === Infinity ? '∞' : Math.floor(window.gameScore);
       cpsEl.innerText = autoCps;
+
       document.getElementById('costClicker').innerText = costClicker;
       document.getElementById('costPower').innerText = costPower;
       document.getElementById('costFactory').innerText = costFactory;
@@ -1229,7 +1663,6 @@
       document.getElementById('costQuantumReactor').innerText = costQuantumReactor;
       document.getElementById('costGodModeClick').innerText = costGodModeClick;
 
-      // Update New Upgrades Costs on DOM
       document.getElementById('costEMiningRig').innerText = costEMiningRig;
       document.getElementById('costCosmicLaser').innerText = costCosmicLaser;
       document.getElementById('costAIEmperor').innerText = costAIEmperor;
@@ -1241,6 +1674,27 @@
       document.getElementById('costTimeWarpEngine').innerText = costTimeWarpEngine;
       document.getElementById('costOmniSingularity').innerText = costOmniSingularity;
 
+      document.getElementById('costNeonSpark').innerText = costNeonSpark;
+      document.getElementById('costPlasmaTap').innerText = costPlasmaTap;
+      document.getElementById('costVoidHarvester').innerText = costVoidHarvester;
+      document.getElementById('costNexusCore').innerText = costNexusCore;
+      document.getElementById('costSolarFlare').innerText = costSolarFlare;
+      document.getElementById('costNebulaWeaver').innerText = costNebulaWeaver;
+      document.getElementById('costMatrixNode').innerText = costMatrixNode;
+      document.getElementById('costQuantumTap').innerText = costQuantumTap;
+      document.getElementById('costTitanEngine').innerText = costTitanEngine;
+      document.getElementById('costHyperdrive').innerText = costHyperdrive;
+      document.getElementById('costGammaStrike').innerText = costGammaStrike;
+      document.getElementById('costDarkMatterSilo').innerText = costDarkMatterSilo;
+      document.getElementById('costInfinityBeacon').innerText = costInfinityBeacon;
+      document.getElementById('costCosmicScepter').innerText = costCosmicScepter;
+      document.getElementById('costAetherForge').innerText = costAetherForge;
+      document.getElementById('costStarlightAnvil').innerText = costStarlightAnvil;
+      document.getElementById('costRealityWeaver').innerText = costRealityWeaver;
+      document.getElementById('costSupermembrane').innerText = costSupermembrane;
+      document.getElementById('costOmegaGauntlet').innerText = costOmegaGauntlet;
+      document.getElementById('costMultiversalCore').innerText = costMultiversalCore;
+
       buyClickerBtn.disabled = window.gameScore < costClicker;
       buyPowerBtn.disabled = window.gameScore < costPower;
       buyFactoryBtn.disabled = window.gameScore < costFactory;
@@ -1249,7 +1703,6 @@
       buyQuantumReactorBtn.disabled = window.gameScore < costQuantumReactor;
       buyGodModeClickBtn.disabled = window.gameScore < costGodModeClick;
 
-      // Update New Upgrades Disabled States
       buyEMiningRigBtn.disabled = window.gameScore < costEMiningRig;
       buyCosmicLaserBtn.disabled = window.gameScore < costCosmicLaser;
       buyAIEmperorBtn.disabled = window.gameScore < costAIEmperor;
@@ -1260,6 +1713,27 @@
       buyGodlyStrikeBtn.disabled = window.gameScore < costGodlyStrike;
       buyTimeWarpEngineBtn.disabled = window.gameScore < costTimeWarpEngine;
       buyOmniSingularityBtn.disabled = window.gameScore < costOmniSingularity;
+
+      buyNeonSparkBtn.disabled = window.gameScore < costNeonSpark;
+      buyPlasmaTapBtn.disabled = window.gameScore < costPlasmaTap;
+      buyVoidHarvesterBtn.disabled = window.gameScore < costVoidHarvester;
+      buyNexusCoreBtn.disabled = window.gameScore < costNexusCore;
+      buySolarFlareBtn.disabled = window.gameScore < costSolarFlare;
+      buyNebulaWeaverBtn.disabled = window.gameScore < costNebulaWeaver;
+      buyMatrixNodeBtn.disabled = window.gameScore < costMatrixNode;
+      buyQuantumTapBtn.disabled = window.gameScore < costQuantumTap;
+      buyTitanEngineBtn.disabled = window.gameScore < costTitanEngine;
+      buyHyperdriveBtn.disabled = window.gameScore < costHyperdrive;
+      buyGammaStrikeBtn.disabled = window.gameScore < costGammaStrike;
+      buyDarkMatterSiloBtn.disabled = window.gameScore < costDarkMatterSilo;
+      buyInfinityBeaconBtn.disabled = window.gameScore < costInfinityBeacon;
+      buyCosmicScepterBtn.disabled = window.gameScore < costCosmicScepter;
+      buyAetherForgeBtn.disabled = window.gameScore < costAetherForge;
+      buyStarlightAnvilBtn.disabled = window.gameScore < costStarlightAnvil;
+      buyRealityWeaverBtn.disabled = window.gameScore < costRealityWeaver;
+      buySupermembraneBtn.disabled = window.gameScore < costSupermembrane;
+      buyOmegaGauntletBtn.disabled = window.gameScore < costOmegaGauntlet;
+      buyMultiversalCoreBtn.disabled = window.gameScore < costMultiversalCore;
     }
 
     updateDisplay();
