@@ -56,74 +56,99 @@
       100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Welcome / Name Entry Modal Gate */
+    /* Welcome / Name Entry Modal Gate matching the requested green box design */
     #welcomeModal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(5, 9, 7, 0.95);
+      background: rgba(5, 9, 7, 0.85);
       z-index: 9999;
       display: flex;
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
 
-    .welcome-box {
-      background: linear-gradient(135deg, #051923, #003554);
-      border: 3px solid #00FF66;
-      border-radius: 16px;
-      padding: 30px;
-      width: 90%;
-      max-width: 380px;
+    .welcome-card {
+      background: #73D263;
+      border: 4px solid #327A21;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      overflow: hidden;
       text-align: center;
-      box-shadow: 0 0 35px rgba(0, 255, 102, 0.6);
+      color: #111;
     }
 
-    .welcome-box h2 {
+    .welcome-header {
+      background: #4DA13C;
+      padding: 18px;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #111;
+      border-bottom: 3px solid #327A21;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 1px;
+    }
+
+    .welcome-body {
+      padding: 25px 20px;
+    }
+
+    .welcome-body p {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111;
       margin-top: 0;
-      font-size: 2rem;
-      color: #fff;
-      text-shadow: 0 0 10px #00FF66;
+      margin-bottom: 25px;
+      line-height: 1.4;
     }
 
-    .welcome-box p {
-      color: #A0FFA0;
-      font-size: 0.95rem;
+    .welcome-input-wrapper {
+      position: relative;
       margin-bottom: 20px;
     }
 
     .welcome-input {
       width: 100%;
-      padding: 12px;
-      background: #141E17;
-      border: 2px solid #00FF66;
-      color: #fff;
-      border-radius: 8px;
-      font-size: 1.1rem;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid #111;
+      padding: 10px 5px;
+      font-size: 1.3rem;
       text-align: center;
-      margin-bottom: 15px;
+      color: #111;
+      font-weight: bold;
       outline: none;
     }
 
+    .welcome-input::placeholder {
+      color: rgba(17, 17, 17, 0.6);
+      font-style: italic;
+    }
+
     .welcome-btn {
-      width: 100%;
-      background: #00FF66;
-      color: #000;
+      background: #255C1B;
+      color: #fff;
       border: none;
-      padding: 12px;
-      font-weight: bold;
+      padding: 12px 30px;
       font-size: 1.1rem;
+      font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
-      transition: background 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.2s, transform 0.1s;
     }
 
     .welcome-btn:hover {
-      background: #145A32;
-      color: #fff;
+      background: #183D11;
+      transform: scale(1.02);
     }
 
     h1 {
@@ -457,7 +482,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, limit, onSnapshot, addDoc, serverTimestamp, getDocs, writeBatch, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, limit, onSnapshot, addDoc, serverTimestamp, getDocs, writeBatch, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCIwhMDn05S_eKskKkjdSJzuDZhlFCdQeE",
@@ -480,7 +505,6 @@
     const welcomeSubmit = document.getElementById('welcomeSubmit');
     const displayUsernameSpan = document.getElementById('displayUsername');
 
-    // Check if user already has a saved name
     if (window.currentUsername) {
       welcomeModal.style.display = 'none';
       displayUsernameSpan.innerText = window.currentUsername;
@@ -497,7 +521,7 @@
     function startGameWithUsername() {
       const enteredName = welcomeInput.value.trim();
       if (enteredName === '') {
-        alert("Please enter a valid name or Discord tag!");
+        alert("Please enter a valid name!");
         return;
       }
       window.currentUsername = enteredName;
@@ -587,28 +611,25 @@
       }
     }
 
-    window.resetAllScoresInCloud = async function() {
-      if (confirm("Are you sure you want to reset EVERYONE's points to 0?")) {
+    // Master Reset: Completely clears the leaderboard and forces everyone to pick new names/points
+    window.masterResetEverything = async function() {
+      if (confirm("⚠️ WARNING: This will delete ALL leaderboard entries, clear all player points, and force everyone to re-enter their names! Are you sure?")) {
         try {
           const querySnapshot = await getDocs(collection(db, "leaderboard"));
           const batch = writeBatch(db);
           querySnapshot.forEach((document) => {
-            const docRef = doc(db, "leaderboard", document.id);
-            batch.update(docRef, { 
-              score: 0, 
-              updatedAt: new Date() 
-            });
+            batch.delete(document.ref);
           });
           await batch.commit();
-          
-          window.gameScore = 0;
-          updateDisplay();
-          saveProgressLocally();
 
-          alert("Everyone's points have been reset to 0! 🔄");
+          // Clear local storage completely
+          localStorage.clear();
+          
+          alert("Leaderboard and all profiles successfully wiped! Reloading page...");
+          location.reload();
         } catch (e) {
-          console.error("Error resetting scores: ", e);
-          alert("Failed to reset scores.");
+          console.error("Error during master reset: ", e);
+          alert("Failed to complete master reset.");
         }
       }
     }
@@ -666,15 +687,20 @@
 
   <!-- Welcome / Name Entry Modal Screen -->
   <div id="welcomeModal">
-    <div class="welcome-box">
-      <h2>Welcome to E Clicker!</h2>
-      <p>Enter your name or Discord handle to start playing and claim your spot on the leaderboard.</p>
-      <input type="text" id="welcomeInput" class="welcome-input" placeholder="Your Name / Discord" maxlength="15" autocomplete="off">
-      <button class="welcome-btn" id="welcomeSubmit">Start Playing 🚀</button>
+    <div class="welcome-card">
+      <div class="welcome-header">
+        Verify ✅
+      </div>
+      <div class="welcome-body">
+        <p>Type your name to access the game:</p>
+        <div class="welcome-input-wrapper">
+          <input type="text" id="welcomeInput" class="welcome-input" placeholder="“Enter name”" maxlength="15" autocomplete="off">
+        </div>
+        <button class="welcome-btn" id="welcomeSubmit">Start Game 🚀</button>
+      </div>
     </div>
   </div>
 
-  <!-- Background Floating Galaxy & Stars Generator -->
   <script>
     const galaxyImageUrl = "https://instasize.com/api/image/d552497648af7f20626f807e64481fd0c417fa28d6916753eab603d2c64328fc.jpeg";
 
@@ -702,7 +728,7 @@
       <button class="dashboard-btn" id="givePointsBtn">Give Points to user 💸</button>
       <button class="dashboard-btn" id="setPointsBtn">Set Points 💰</button>
       <button class="dashboard-btn" id="banUserBtn" style="background:#5a1414; border-color:#ff4d4d;">Ban User 🚫</button>
-      <button class="dashboard-btn" id="resetPointsBtn" style="background:#5a4314; border-color:#ffaa00;">Reset everyone’s Points 🔄</button>
+      <button class="dashboard-btn" id="masterResetBtn" style="background:#7a1414; border-color:#ff1a1a;">Reset Leaderboard & All Data ⚠️</button>
       <button class="dashboard-btn close-modal-btn" id="closeAdminModal">Close Panel</button>
     </div>
   </div>
@@ -1045,7 +1071,6 @@
     <div class="leaderboard-container">
       <div class="panel">
         <div class="leaderboard-title" id="leaderboardTitle">Global Leaderboard</div>
-        <!-- Replaced input with a clean display badge of their locked-in name -->
         <div class="username-display-box">Player: <span id="displayUsername">-</span></div>
         <ul class="leaderboard-list" id="leaderboardList">
           <li class="leaderboard-item"><span>Loading scores...</span></li>
@@ -1156,7 +1181,7 @@
     const givePointsBtn = document.getElementById('givePointsBtn');
     const setPointsBtn = document.getElementById('setPointsBtn');
     const banUserBtn = document.getElementById('banUserBtn');
-    const resetPointsBtn = document.getElementById('resetPointsBtn');
+    const masterResetBtn = document.getElementById('masterResetBtn');
 
     const globalChatBtn = document.getElementById('globalChatBtn');
     const chatModal = document.getElementById('chatModal');
@@ -1282,10 +1307,10 @@
       }
     });
 
-    resetPointsBtn.addEventListener('click', () => {
-      const code = prompt("Enter admin password to reset everyone's points:");
+    masterResetBtn.addEventListener('click', () => {
+      const code = prompt("Enter admin password to wipe the leaderboard & all data:");
       if (code === "crislegoat90") {
-        window.resetAllScoresInCloud();
+        window.masterResetEverything();
       } else if (code !== null) {
         alert("Incorrect password!");
       }
